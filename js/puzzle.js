@@ -10,8 +10,11 @@ var PIECE_WIDTH,
     BOARD_ROWS;
 
 function PieceScene(a,b){
-	PIECE_WIDTH=a;
-	PIECE_HEIGHT=b;
+	BOARD_COLS=a;
+	BOARD_ROWS=b;
+    PIECE_WIDTH = game.world.width / BOARD_COLS;//列数
+    PIECE_HEIGHT = game.world.height / BOARD_ROWS;//行数
+	
 }
 
 var piecesGroup,
@@ -21,7 +24,7 @@ var piecesGroup,
 
 var scene1={
 	preload:function () {
-		PieceScene(200,200);
+		PieceScene(4,3);
     	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
 	},
 	create:function() {
@@ -30,7 +33,17 @@ var scene1={
 }
 var scene2={
 	preload:function () {
-		PieceScene(160,150);
+		PieceScene(5,4);
+    	game.load.spritesheet("background", "assets/puzzle/2.jpg", PIECE_WIDTH,PIECE_HEIGHT);
+	},
+	create:function() {
+  	  prepareBoard();
+	}
+}
+
+var scene3={
+	preload:function () {
+		PieceScene(6,5);
     	game.load.spritesheet("background", "assets/puzzle/2.jpg", PIECE_WIDTH,PIECE_HEIGHT);
 	},
 	create:function() {
@@ -38,14 +51,12 @@ var scene2={
 	}
 }
 function prepareBoard() {
-	/*PIECE_WIDTH = pieceWidth;
-    PIECE_HEIGHT = pieceHeight;*/
     var piecesIndex = 0,
         i, j,
         piece;
 
-    BOARD_COLS = Math.floor(game.world.width / PIECE_WIDTH);//列数
-    BOARD_ROWS = Math.floor(game.world.height / PIECE_HEIGHT);//行数
+    /*BOARD_COLS = Math.floor(game.world.width / PIECE_WIDTH);//列数
+    BOARD_ROWS = Math.floor(game.world.height / PIECE_HEIGHT);//行数*/
 
     piecesAmount = BOARD_COLS * BOARD_ROWS;
 
