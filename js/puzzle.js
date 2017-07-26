@@ -9,12 +9,13 @@ var PIECE_WIDTH,
     BOARD_COLS,
     BOARD_ROWS;
 
+
+//传入列数和行数自动算出 碎片的宽高
 function PieceScene(a,b){
-	BOARD_COLS=a;
-	BOARD_ROWS=b;
-    PIECE_WIDTH = game.world.width / BOARD_COLS;//列数
-    PIECE_HEIGHT = game.world.height / BOARD_ROWS;//行数
-	
+	BOARD_COLS=a;//列数
+	BOARD_ROWS=b;//行数
+    PIECE_WIDTH = game.world.width / BOARD_COLS;
+    PIECE_HEIGHT = game.world.height / BOARD_ROWS;
 }
 
 var piecesGroup,
@@ -24,7 +25,7 @@ var piecesGroup,
 
 var scene1={
 	preload:function () {
-		PieceScene(4,3);
+		PieceScene(3,2);
     	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
 	},
 	create:function() {
@@ -32,6 +33,15 @@ var scene1={
 	}
 }
 var scene2={
+	preload:function () {
+		PieceScene(4,3);
+    	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
+	},
+	create:function() {
+  	  prepareBoard();
+	}
+}
+var scene3={
 	preload:function () {
 		PieceScene(5,4);
     	game.load.spritesheet("background", "assets/puzzle/2.jpg", PIECE_WIDTH,PIECE_HEIGHT);
@@ -41,7 +51,7 @@ var scene2={
 	}
 }
 
-var scene3={
+var scene4={
 	preload:function () {
 		PieceScene(6,5);
     	game.load.spritesheet("background", "assets/puzzle/2.jpg", PIECE_WIDTH,PIECE_HEIGHT);
@@ -50,6 +60,7 @@ var scene3={
   	  prepareBoard();
 	}
 }
+
 function prepareBoard() {
     var piecesIndex = 0,
         i, j,
@@ -57,7 +68,8 @@ function prepareBoard() {
 
     /*BOARD_COLS = Math.floor(game.world.width / PIECE_WIDTH);//列数
     BOARD_ROWS = Math.floor(game.world.height / PIECE_HEIGHT);//行数*/
-
+   
+	//碎片数量
     piecesAmount = BOARD_COLS * BOARD_ROWS;
 
     shuffledIndexArray = createShuffledIndexArray();//乱序数组
@@ -166,7 +178,7 @@ function checkIfFinished() {
 
     if (isFinished) {//如果已完成了，显示庆祝字样
         showFinishedText();
-       	game.state.start('scene2');
+       	//game.state.start('scene2');
     }
 
 }
@@ -176,9 +188,10 @@ function showFinishedText() {
 
     var style = { font: "40px Arial", fill: "#000", align: "center"};
 
-    var text = game.add.text(game.world.centerX, game.world.centerY, "Congratulations! \nYou made it!", style);
-
-    text.anchor.set(0.5);
+    //var text = game.add.text(game.world.centerX, game.world.centerY, "Congratulations! \nYou made it!", style);
+	var imgpiece=game.add.image(0,0,"background");
+    //text.anchor.set(0.5);
+    imgpiece.anchor.set(0);
 
 }
 
@@ -221,6 +234,8 @@ function shuffle(array) {
 
 game.state.add('scene1',scene1);
 game.state.add('scene2',scene2);
+game.state.add('scene3',scene3);
+game.state.add('scene4',scene4);
 game.state.start('scene1');
 
 window.addEventListener('load',function(){
@@ -229,6 +244,12 @@ window.addEventListener('load',function(){
 	}
 	document.getElementById('scene2').onclick=function(){
 		game.state.start('scene2');
+	}
+	document.getElementById('scene3').onclick=function(){
+		game.state.start('scene3');
+	}
+	document.getElementById('scene4').onclick=function(){
+		game.state.start('scene4');
 	}
 });
  
