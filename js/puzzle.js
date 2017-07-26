@@ -222,3 +222,4 @@ window.addEventListener('load',function(){
 		game.state.start('scene2');
 	}
 });
+ 
