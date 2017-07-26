@@ -12,8 +12,8 @@ var PIECE_WIDTH,
 
 
 //传入列数和行数自动算出 碎片的宽高
-function PieceScene(a,b){
-	
+function PieceScene(a,b,scene){
+	document.getElementById('phaser-example').setAttribute('data-value',scene);
 	
 	//获取 列数和行数数组
 	var widthNumArr=[],heightNumArr=[];
@@ -52,39 +52,39 @@ var piecesGroup,
 
 var scene1={
 	preload:function () {
-		PieceScene(4,3);
+		PieceScene(4,3,'1');
     	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
 	},
 	create:function() {
-  	  prepareBoard('scene1');
+  	  prepareBoard();
 	}
 }
 var scene2={
 	preload:function () {
-		PieceScene(5,4);
+		PieceScene(5,4,'2');
     	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
 	},
 	create:function() {
-  	  prepareBoard('scene2');
+  	  prepareBoard();
 	}
 }
 
 var scene3={
 	preload:function () {
-		PieceScene(8,6);
+		PieceScene(8,6,'3');
     	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
 	},
 	create:function() {
-  	  prepareBoard('scene3');
+  	  prepareBoard();
 	}
 }
 var scene4={
 	preload:function () {
-		PieceScene(10,8);
+		PieceScene(10,8,'4');
     	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
 	},
 	create:function() {
-  	  prepareBoard('scene4');
+  	  prepareBoard();
 	}
 }
 
@@ -131,13 +131,13 @@ function prepareBoard(scene) {
 
 }
 
-function selectPiece(piece,scene) {
+function selectPiece(piece) {
 
     var blackPiece = canMove(piece);//寻找与点击块相邻的黑块
 
     //if there is a black piece in neighborhood
     if (blackPiece) {//如果找到了
-        movePiece(piece, blackPiece,scene);
+        movePiece(piece, blackPiece);
     }
 
 }
@@ -162,7 +162,7 @@ function canMove(piece) {
 }
 
 //交换两个块的位置
-function movePiece(piece, blackPiece,scene) {
+function movePiece(piece, blackPiece) {
 
     var tmpPiece = {
         posX: piece.posX,
@@ -190,11 +190,11 @@ function movePiece(piece, blackPiece,scene) {
     blackPiece.name ='piece' + blackPiece.posX.toString() + 'x' + blackPiece.posY.toString();
 
     //after every move check if puzzle is completed
-    checkIfFinished(scene);
+    checkIfFinished();
 }
 
 //是否已完成拼图
-function checkIfFinished(scene) {
+function checkIfFinished() {
 
     var isFinished = true;
 
@@ -204,16 +204,19 @@ function checkIfFinished(scene) {
             return;
         }
     });
-
+	
     if (isFinished) {//如果已完成了，显示庆祝字样
-        showFinishedText(scene);
-       	//game.state.start('scene2');
+        showFinishedText();
+        alert('进入下一关');
+        scenes=document.getElementById('phaser-example').attributes["data-value"].value;
+        scenes=parseInt(scenes)+1;
+   		game.state.start('scene'+scenes);
     }
 
 }
 
 //显示庆祝字样
-function showFinishedText(scene) {
+function showFinishedText() {
 
     var style = { font: "40px Arial", fill: "#000", align: "center"};
 
@@ -221,8 +224,7 @@ function showFinishedText(scene) {
 	var imgpiece=game.add.image(0,0,"background");
     text.anchor.set(0.5);
     imgpiece.anchor.set(0);
-    alert('进入下一关');
-    game.state.start(scene);
+    
 }
 
 //创造乱序数组，是先创造有序数组，再打乱之
