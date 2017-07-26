@@ -16,6 +16,8 @@ function PieceScene(a,b){
 	BOARD_ROWS=b;//行数
     PIECE_WIDTH = game.world.width / BOARD_COLS;
     PIECE_HEIGHT = game.world.height / BOARD_ROWS;
+    console.log(PIECE_WIDTH);
+    console.log(PIECE_HEIGHT);
 }
 
 var piecesGroup,
@@ -23,16 +25,8 @@ var piecesGroup,
     shuffledIndexArray = [];
 
 
+
 var scene1={
-	preload:function () {
-		PieceScene(3,2);
-    	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
-	},
-	create:function() {
-  	  prepareBoard();
-	}
-}
-var scene2={
 	preload:function () {
 		PieceScene(4,3);
     	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
@@ -41,26 +35,34 @@ var scene2={
   	  prepareBoard();
 	}
 }
-var scene3={
+var scene2={
 	preload:function () {
 		PieceScene(5,4);
-    	game.load.spritesheet("background", "assets/puzzle/2.jpg", PIECE_WIDTH,PIECE_HEIGHT);
+    	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
 	},
 	create:function() {
   	  prepareBoard();
 	}
 }
 
+var scene3={
+	preload:function () {
+		PieceScene(8,6);
+    	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
+	},
+	create:function() {
+  	  prepareBoard();
+	}
+}
 var scene4={
 	preload:function () {
-		PieceScene(6,5);
-    	game.load.spritesheet("background", "assets/puzzle/2.jpg", PIECE_WIDTH,PIECE_HEIGHT);
+		PieceScene(10,10);
+    	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
 	},
 	create:function() {
   	  prepareBoard();
 	}
 }
-
 function prepareBoard() {
     var piecesIndex = 0,
         i, j,
