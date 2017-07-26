@@ -4,11 +4,19 @@
 
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example');
 
-var PIECE_WIDTH = 200,
-    PIECE_HEIGHT = 200,
+var PIECE_WIDTH=200,
+    PIECE_HEIGHT=200,
     BOARD_COLS,
     BOARD_ROWS;
 
+/*if(game.state.start('scene1')){
+	PIECE_WIDTH=200,
+    PIECE_HEIGHT=200,
+}
+if(game.state.start('scene2')){
+	PIECE_WIDTH=100,
+    PIECE_HEIGHT=100,
+}*/
 var piecesGroup,
     piecesAmount,
     shuffledIndexArray = [];
@@ -16,7 +24,7 @@ var piecesGroup,
 
 var scene1={
 	preload:function () {
-    	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH, PIECE_HEIGHT);
+    	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
 	},
 	create:function() {
   	  prepareBoard();
@@ -24,7 +32,7 @@ var scene1={
 }
 var scene2={
 	preload:function () {
-    	game.load.spritesheet("background", "assets/puzzle/2.jpg", PIECE_WIDTH, PIECE_HEIGHT);
+    	game.load.spritesheet("background", "assets/puzzle/2.jpg", PIECE_WIDTH,PIECE_HEIGHT);
 	},
 	create:function() {
   	  prepareBoard();
@@ -32,7 +40,8 @@ var scene2={
 }
 
 function prepareBoard() {
-
+	/*PIECE_WIDTH = pieceWidth;
+    PIECE_HEIGHT = pieceHeight;*/
     var piecesIndex = 0,
         i, j,
         piece;
