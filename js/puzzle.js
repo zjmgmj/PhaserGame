@@ -4,6 +4,7 @@
 
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example');
 
+
 var PIECE_WIDTH,
     PIECE_HEIGHT,
     BOARD_COLS,
@@ -12,12 +13,36 @@ var PIECE_WIDTH,
 
 //传入列数和行数自动算出 碎片的宽高
 function PieceScene(a,b){
+	
+	
+	//获取 列数和行数数组
+	var widthNumArr=[],heightNumArr=[];
+	
+	for(var i=0;i<=10;i++){
+		
+		var widthNum=game.world.width/i;
+		var heightNum=game.world.height/i;
+		var isInteger=/^-?\d+$/;
+		var widthNumVerif=isInteger.test(widthNum);
+		var heightNumVerif=isInteger.test(heightNum);
+		
+		if(widthNumVerif){
+			widthNumArr.push(i);
+		}
+		if(heightNumVerif){heightNumArr.push(i);}
+	};
+	 console.log(widthNumArr,heightNumArr); 
+	 
+	 
+	
+	
 	BOARD_COLS=a;//列数
 	BOARD_ROWS=b;//行数
     PIECE_WIDTH = game.world.width / BOARD_COLS;
     PIECE_HEIGHT = game.world.height / BOARD_ROWS;
-    console.log(PIECE_WIDTH);
-    console.log(PIECE_HEIGHT);
+    
+   
+  
 }
 
 var piecesGroup,
@@ -56,13 +81,16 @@ var scene3={
 }
 var scene4={
 	preload:function () {
-		PieceScene(10,10);
+		PieceScene(10,8);
     	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
 	},
 	create:function() {
   	  prepareBoard();
 	}
 }
+
+
+
 function prepareBoard() {
     var piecesIndex = 0,
         i, j,
