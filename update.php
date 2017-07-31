@@ -3,7 +3,7 @@ include "conn.php";
 
 $id='';
 $user='z123';
-$password='';
+$password='123';
 $level='';
 $time='';
 
