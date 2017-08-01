@@ -1,5 +1,9 @@
 <?php
+
+include 'session.php';
+
 include 'conn.php';
+
 //查询读取
 $result = mysqli_query($conn, "SELECT * FROM user");
 

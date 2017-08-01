@@ -16,6 +16,11 @@ if($password==$row[0]){
 	$insertQuery="update USER set loginTime='{$loginTime}' where user='{$user}'";
 	mysqli_query($conn, $insertQuery);
 	
+	session_start();
+	/*$_session['user']=$user;
+	$_session['password']=$password;*/
+	$_SESSION['islogin'] = true;
+	
 	echo "登陆成功";
 }else{
 	echo "登陆失败";
