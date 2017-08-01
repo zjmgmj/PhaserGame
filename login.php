@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include "conn.php";
 
 $user=$_POST['user'];
@@ -16,9 +18,10 @@ if($password==$row[0]){
 	$insertQuery="update USER set loginTime='{$loginTime}' where user='{$user}'";
 	mysqli_query($conn, $insertQuery);
 	
-	session_start();
+	$_SESSION = array();
 	/*$_session['user']=$user;
 	$_session['password']=$password;*/
+	$_SESSION["user"]=$user;
 	$_SESSION['islogin'] = true;
 	
 	echo "登陆成功";
