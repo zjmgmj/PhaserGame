@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+
+		<!--<form action="logo.php" method="post">-->
+			<form method="post">
+			<input type="text" name="user" id="user" value="" />
+			<input type="password" name="password" id="password" value="" />
+			<!--<input type="submit" value="登录" />-->
+			
+			<input type="button" id="login" value="登陆"></input>
+			<input type="reset" value="重置"></input>
+		</form>
+		<script>
+			$('#login').on('click', function() {
+				var param = {};
+				param['user'] = document.getElementById('user').value;
+				param['password'] = document.getElementById('password').value;
+				/*_user = document.getElementById('user').value;
+				_password = document.getElementById('password').value;*/
+//				console.log(param);
+				$.ajax({
+					type: "POST",
+					url: "logo.php",
+					data: param,
+					//data:{user:_user,password:_password},
+					success: function(msg, status) {
+						if(msg=='登陆失败'){
+							alert('用户名或密码错误');
+							return;
+						}
+						window.location='/game_7.html';
+					}
+				});
+				/*$.post("logo.php", {
+					param: param
+				}, function(data) {
+					alert(data.user) // 这就是你要的success，这是json类型
+				}, "josn");*/
+			});
+		</script>
+	</body>
+
+</html>
