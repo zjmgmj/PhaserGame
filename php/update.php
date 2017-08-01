@@ -1,11 +1,13 @@
 <?php
+session_start();
+
 include "conn.php";
 
-$id='';
-$user='z123';
-$password='123';
-$level='';
-$time='';
+//$id='';
+$user=$_SESSION['user'];
+//$password='';
+$level=$_POST['level'];
+//$time='';
 
 
 $query="update USER set user='{$user}',password='{$password}',level='{$level}',time='{$time}' WHERE user='{$user}'";

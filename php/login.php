@@ -19,8 +19,7 @@ if($password==$row[0]){
 	mysqli_query($conn, $insertQuery);
 	
 	$_SESSION = array();
-	/*$_session['user']=$user;
-	$_session['password']=$password;*/
+	
 	$_SESSION["user"]=$user;
 	$_SESSION['islogin'] = true;
 	

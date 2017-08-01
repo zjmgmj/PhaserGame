@@ -23,15 +23,16 @@
 				//console.log(param);
 				$.ajax({
 					type: "POST",
-					url: "reg.php",
+					url: "/H5game/php/reg.php",
 					data: param,
 					success: function(msg, status) {
 						if(msg=='注册失败'||msg=='用户已注册'){
 							alert(msg);
-							return;
 						}
-						console.log('注册成功');
-//						window.location='/logo.html';
+						if(msg=='注册成功'){
+							alert(msg);
+						}
+						window.location='/H5game/login.html';
 					}
 				});
 			});

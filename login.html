@@ -29,12 +29,12 @@
 				}
 				$.ajax({
 					type: "POST",
-					url: "login.php",
+					url: "/H5game/php/login.php",
 					data: param,
 					success: function(msg, status) {
 						if(msg=='登陆成功'){
 							alert('登陆成功');
-							window.location='/game_7.html';
+							window.location='/H5game/game_7.html';
 							return;
 						}
 						alert('用户名或密码错误');

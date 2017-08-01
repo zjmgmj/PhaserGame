@@ -210,7 +210,15 @@ function checkIfFinished() {
         alert('进入下一关');
         scenes=document.getElementById('phaser-example').attributes["data-value"].value;
         scenes=parseInt(scenes)+1;
-   		game.state.start('scene'+scenes);
+   		$.ajax({
+   			type:"post",
+   			url:"./php/userUpdate.php",
+   			async:true,
+   			success:{
+   				game.state.start('scene'+scenes);
+   			}
+   		});
+   		
     }
 
 }
