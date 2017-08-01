@@ -3,7 +3,7 @@ include "conn.php";
 
 $user=$_POST['user'];
 $password=$_POST['password'];
-
+$loginTime=date("Y-m-d H:i:s");
 
 
 $query = "SELECT password FROM USER where user='{$user}'";
@@ -13,6 +13,9 @@ $row=mysqli_fetch_row($result);
 
 
 if($password==$row[0]){
+	$insertQuery="update USER set loginTime='{$loginTime}' where user='{$user}'";
+	mysqli_query($conn, $insertQuery);
+	
 	echo "登陆成功";
 }else{
 	echo "登陆失败";

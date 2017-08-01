@@ -4,7 +4,7 @@
 	
 	$user=$_POST["user"];
 	$password=$_POST["password"];
-	$time=date("Y-m-d H:i:s");;
+	$regTime=date("Y-m-d H:i:s");;
 	
 	
 	
@@ -12,7 +12,7 @@
 	$getid=mysqli_fetch_row($idSql);
 	$id=$getid[0]+1;
 	
-	
+	//判断用户重名
 	$verification="select user from USER where user='{$user}'";
 	$res_ver=mysqli_query($conn, $verification);
 	$res_user=mysqli_fetch_row($res_ver);
@@ -21,8 +21,8 @@
 		exit();
 	}
 	
-	
-	$query="insert into USER(id,user,password,regTime) values('{$id}','{$user}','{$password}','{$time}')";
+	//注册写入
+	$query="insert into USER(id,user,password,regTime) values('{$id}','{$user}','{$password}','{$regTime}')";
 	$result=mysqli_multi_query($conn,$query);
 	if($result){
 		echo "注册成功";
