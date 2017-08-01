@@ -11,24 +11,27 @@
 		<form method="post">
 			<input type="text" name="user" id="user" value="" />
 			<input type="password" name="password" id="password" value="" />
-			<input type="button" id="login" value="登陆"></input>
-			<input type="reset" value="重置"></input>
+			<input type="button" id="reg" value="提交"></input>
+			
 		</form>
 		<script>
-			$('#login').on('click', function() {
+			$('#reg').on('click', function() {
 				var param = {};
 				param['user'] = document.getElementById('user').value;
 				param['password'] = document.getElementById('password').value;
+				//param['regTime']=new Date();
+				//console.log(param);
 				$.ajax({
 					type: "POST",
-					url: "logo.php",
+					url: "reg.php",
 					data: param,
 					success: function(msg, status) {
-						if(msg=='登陆失败'){
-							alert('用户名或密码错误');
+						if(msg=='注册失败'||msg=='用户已注册'){
+							alert(msg);
 							return;
 						}
-						window.location='/game_7.html';
+						console.log('注册成功');
+//						window.location='/logo.html';
 					}
 				});
 			});
