@@ -25,33 +25,33 @@
 				dataType: "json",
 				success: function(data, textStatus) {
 					var html = '';
-					if(data.user[0].msg == '0') {
+					if(data.msg[0].msg == '0') {
 						console.log('未登录');
 						window.location = '/H5game/login.html';
 						return;
 					}
-					if(data.user[0].msg == '1') {
-						var user = data.user[0].user;
-						html = '<p>' + user + '</p>';
+					if(data.msg[0].msg == '1') {
+						var currentUser = data.msg[0].user;
+						var currentLevel=data.msg[0].level;
+						html = '<p>' + currentUser + '</p><br/>';
+						for(var i in data.user) {
+							var id = data.user[i].id;
+							var user = data.user[i].user;
+							var level = data.user[i].level;
+							if(level==null){level='0'};
+							var password = data.user[i].password;
+							html = html + '<p>' + id + ',' + user + ',' + level + '</p>';
+						};
 						$('#user').html(html);
+						var scenesL='scene'+currentLevel;
+						game.state.start(scenesL);
 					}
-
-					/*
-					for(var i in data.user) {
-						var id = data.user[i].id;
-						var user = data.user[i].user;
-						var password = data.user[i].password;
-						html = html + '<p>' + id + ',' + user + ',' + password + '</p>';
-					};
-					$('#user').html(html);*/
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log(errorThrown);
 				}
 			});
 		</script>
-
-		
 
 	</body>
 

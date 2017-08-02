@@ -8,7 +8,8 @@ var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example');
 var PIECE_WIDTH,
     PIECE_HEIGHT,
     BOARD_COLS,
-    BOARD_ROWS;
+    BOARD_ROWS,
+    submitData={};
 
 
 //传入列数和行数自动算出 碎片的宽高
@@ -210,15 +211,14 @@ function checkIfFinished() {
         alert('进入下一关');
         scenes=document.getElementById('phaser-example').attributes["data-value"].value;
         scenes=parseInt(scenes)+1;
+        submitData['level']=scenes;
    		$.ajax({
    			type:"post",
-   			url:"./php/userUpdate.php",
-   			async:true,
-   			success:{
-   				game.state.start('scene'+scenes);
-   			}
+   			url:"/H5game/php/userUpdate.php",
+   			data:submitData,
+   			success:{}
    		});
-   		
+   		game.state.start('scene'+scenes);
     }
 
 }
@@ -280,15 +280,51 @@ game.state.start('scene1');
 
 window.addEventListener('load',function(){
 	document.getElementById('scene1').onclick=function(){
+		submitData['level']='1';
+		$.ajax({
+   			type:"post",
+   			url:"/H5game/php/userUpdate.php",
+   			data:submitData,
+   			success:function(data){
+   				console.log(data);
+   			}
+   		});
 		game.state.start('scene1');
 	}
 	document.getElementById('scene2').onclick=function(){
+		submitData['level']='2';
+		$.ajax({
+   			type:"post",
+   			url:"/H5game/php/userUpdate.php",
+   			data:submitData,
+   			success:function(data){
+   				console.log(data);
+   			}
+   		});
 		game.state.start('scene2');
 	}
 	document.getElementById('scene3').onclick=function(){
+		submitData['level']='3';
+		$.ajax({
+   			type:"post",
+   			url:"/H5game/php/userUpdate.php",
+   			data:submitData,
+   			success:function(data){
+   				console.log(data);
+   			}
+   		});
 		game.state.start('scene3');
 	}
 	document.getElementById('scene4').onclick=function(){
+		submitData['level']='4';
+		$.ajax({
+   			type:"post",
+   			url:"/H5game/php/userUpdate.php",
+   			data:submitData,
+   			success:function(data){
+   				console.log(data);
+   			}
+   		});
 		game.state.start('scene4');
 	}
 });
