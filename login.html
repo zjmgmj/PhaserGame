@@ -5,8 +5,7 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="css/login.css" />
-		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+
 	</head>
 
 	<body>
@@ -14,20 +13,20 @@
 			<div class="login_content">
 				<ul class="reg">
 					<form method="post">
-						<li><span>用户名：</span><input type="text" name="user" id="user" value="" class="user"/></li>
-						<li><span>密码：</span><input type="password" name="password" id="password" value="" class="psd"/></li>
+						<li><span>用户名：</span><input type="text" name="user" id="user" value="" class="user" /></li>
+						<li><span>密码：</span><input type="password" name="password" id="password" value="" class="psd" /></li>
 						<li>
 							<button class="submit"><a href="/H5game/reg.html">注册</a></button>
-							<button type="reset"  class="submit">重置</button>
-							<button type="button" id="login"  class="submit">登陆</button>
+							<button type="reset" class="submit">重置</button>
+							<button type="button" id="login" class="submit">登陆</button>
 						</li>
-						
-						
+
 					</form>
 				</ul>
 			</div>
 		</div>
-
+		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/H5game/js/public.js" type="text/javascript" charset="utf-8"></script>
 		<script>
 			$('#login').on('click', function() {
 				var param = {};
