@@ -3,16 +3,25 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>注册</title>
+		<link rel="stylesheet" type="text/css" href="css/login.css" />
+
 		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
-		<form method="post">
-			<input type="text" name="user" id="user" value="" />
-			<input type="password" name="password" id="password" value="" />
-			<input type="button" id="reg" value="提交"></input>
-		</form>
+		<div class="body">
+			<div class="login_content">
+				<ul class="reg">
+					<form method="post">
+						<li><span>用户名：</span><input type="text" name="user" id="user" value="" class="user"/></li>
+						<li><span>密码：</span><input type="password" name="password" id="password" value="" class="psd"/></li>
+						<li><button type="button" id="reg"  class="submit">注册</button></li>
+					</form>
+				</ul>
+			</div>
+		</div>
+
 		<script>
 			$('#reg').on('click', function() {
 				var param = {};
@@ -25,13 +34,13 @@
 					url: "/H5game/php/reg.php",
 					data: param,
 					success: function(msg, status) {
-						if(msg=='注册失败'||msg=='用户已注册'){
+						if(msg == '注册失败' || msg == '用户已注册') {
 							alert(msg);
 						}
-						if(msg=='注册成功'){
+						if(msg == '注册成功') {
 							alert(msg);
 						}
-						window.location='/H5game/login.html';
+						window.location = '/H5game/login.html';
 					}
 				});
 			});

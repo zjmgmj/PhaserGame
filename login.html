@@ -4,26 +4,39 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/login.css" />
 		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
-		<form method="post">
-			<input type="text" name="user" id="user" value="" />
-			<input type="password" name="password" id="password" value="" />
-			<input type="button" id="login" value="登陆"></input>
-			<input type="reset" value="重置"></input>
-		</form>
+		<div class="body">
+			<div class="login_content">
+				<ul class="reg">
+					<form method="post">
+						<li><span>用户名：</span><input type="text" name="user" id="user" value="" class="user"/></li>
+						<li><span>密码：</span><input type="password" name="password" id="password" value="" class="psd"/></li>
+						<li>
+							<button class="submit"><a href="/H5game/reg.html">注册</a></button>
+							<button type="reset"  class="submit">重置</button>
+							<button type="button" id="login"  class="submit">登陆</button>
+						</li>
+						
+						
+					</form>
+				</ul>
+			</div>
+		</div>
+
 		<script>
 			$('#login').on('click', function() {
 				var param = {};
 				param['user'] = document.getElementById('user').value;
 				param['password'] = document.getElementById('password').value;
-				if(param['user']==''){
+				if(param['user'] == '') {
 					console.log('请输入用户名');
 					return;
 				}
-				if(param['password']==''){
+				if(param['password'] == '') {
 					console.log('请输入密码');
 					return;
 				}
@@ -32,14 +45,14 @@
 					url: "/H5game/php/login.php",
 					data: param,
 					success: function(msg, status) {
-						if(msg=='登陆成功'){
+						if(msg == '登陆成功') {
 							alert('登陆成功');
-							window.location='/H5game/game_7.html';
+							window.location = '/H5game/game_7.html';
 							return;
 						}
 						alert('用户名或密码错误');
 						console.log('用户名或密码错误');
-						
+
 						//window.location='/game_7.html';
 					}
 				});
