@@ -12,6 +12,19 @@ a {
 input {
   box-sizing: inherit;
 }
+.white_color_border {
+  border: 3px solid rgba(255, 255, 255, 0.8);
+}
+.submit {
+  width: 50px;
+  line-height: 25px;
+  margin: 0 5px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.6);
+  box-sizing: inherit;
+  border: none;
+  color: #fff;
+}
 .body {
   width: 100%;
   height: 900px;
@@ -60,6 +73,14 @@ input {
   width: 800px;
   margin: 0 auto;
   padding-top: 35px;
+}
+.content .flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.content .white_color {
+  color: #fff;
 }
 .ranks {
   width: 300px;
