@@ -327,12 +327,12 @@ window.addEventListener('load', function() {
 		dataType: "json",
 		success: function(data, textStatus) {
 			var html = '';
-			if(data.msg[0].msg == '0') {
+			/*if(data.msg[0].msg == '0') {
 				console.log('未登录');
 				window.location = '/H5game/login.html';
 				return;
-			}
-			if(data.msg[0].msg == '1') {
+			}*/
+			if(data.user[0].msg == '1') {
 				var currentUser = data.msg[0].user;
 				var currentLevel = data.msg[0].level;
 				currentLevel=parseInt(currentLevel);
@@ -353,10 +353,25 @@ window.addEventListener('load', function() {
 				$('#user').html(html);
 				var scenesL = 'scene' + currentLevel;
 				game.state.start(scenesL);
+				return;
 			}
+				console.log('未登录');
+				window.location = '/H5game/login.html';
+				
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
 			console.log(errorThrown);
 		}
+	});
+	$('#logout').on('click',function(){
+		$.ajax({
+			type:"post",
+			url: "/H5game/php/session.php",
+			async:true,
+			data:{'logout':'0'},
+			success:function(msg){
+				window.location=msg;
+			}
+		});
 	});
 });
