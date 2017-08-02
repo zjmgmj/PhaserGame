@@ -4,248 +4,241 @@
 
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example');
 
-
 var PIECE_WIDTH,
-    PIECE_HEIGHT,
-    BOARD_COLS,
-    BOARD_ROWS,
-    submitData={};
-
+	PIECE_HEIGHT,
+	BOARD_COLS,
+	BOARD_ROWS,
+	submitData = {};
 
 //传入列数和行数自动算出 碎片的宽高
-function PieceScene(a,b,scene){
-	document.getElementById('phaser-example').setAttribute('data-value',scene);
-	
+function PieceScene(a, b, scene) {
+	document.getElementById('phaser-example').setAttribute('data-value', scene);
+
 	//获取 列数和行数数组
-	var widthNumArr=[],heightNumArr=[];
-	
-	for(var i=0;i<=10;i++){
-		
-		var widthNum=game.world.width/i;
-		var heightNum=game.world.height/i;
-		var isInteger=/^-?\d+$/;
-		var widthNumVerif=isInteger.test(widthNum);
-		var heightNumVerif=isInteger.test(heightNum);
-		
+	var widthNumArr = [],
+		heightNumArr = [];
+
+	for(var i = 0; i <= 10; i++) {
+
+		var widthNum = game.world.width / i;
+		var heightNum = game.world.height / i;
+		var isInteger = /^-?\d+$/;
+		var widthNumVerif = isInteger.test(widthNum);
+		var heightNumVerif = isInteger.test(heightNum);
+
 		if(widthNumVerif) widthNumArr.push(i);
-		
+
 		if(heightNumVerif) heightNumArr.push(i);
 	};
-	 console.log(widthNumArr,heightNumArr); 
-	 
-	 
-	
-	
-	BOARD_COLS=a;//列数
-	BOARD_ROWS=b;//行数
-    PIECE_WIDTH = game.world.width / BOARD_COLS;
-    PIECE_HEIGHT = game.world.height / BOARD_ROWS;
-    
-   
-  
+	console.log(widthNumArr, heightNumArr);
+
+	BOARD_COLS = a; //列数
+	BOARD_ROWS = b; //行数
+	PIECE_WIDTH = game.world.width / BOARD_COLS;
+	PIECE_HEIGHT = game.world.height / BOARD_ROWS;
+
 }
 
 var piecesGroup,
-    piecesAmount,
-    shuffledIndexArray = [];
+	piecesAmount,
+	shuffledIndexArray = [];
 
-
-
-var scene1={
-	preload:function () {
-		PieceScene(4,3,'1');
-    	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
+var scene1 = {
+	preload: function() {
+		PieceScene(4, 3, '1');
+		game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH, PIECE_HEIGHT);
 	},
-	create:function() {
-  	  prepareBoard();
+	create: function() {
+		prepareBoard();
 	}
 }
-var scene2={
-	preload:function () {
-		PieceScene(5,4,'2');
-    	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
+var scene2 = {
+	preload: function() {
+		PieceScene(5, 4, '2');
+		game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH, PIECE_HEIGHT);
 	},
-	create:function() {
-  	  prepareBoard();
-	}
-}
-
-var scene3={
-	preload:function () {
-		PieceScene(8,6,'3');
-    	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
-	},
-	create:function() {
-  	  prepareBoard();
-	}
-}
-var scene4={
-	preload:function () {
-		PieceScene(10,8,'4');
-    	game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH,PIECE_HEIGHT);
-	},
-	create:function() {
-  	  prepareBoard();
+	create: function() {
+		prepareBoard();
 	}
 }
 
-
+var scene3 = {
+	preload: function() {
+		PieceScene(8, 6, '3');
+		game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH, PIECE_HEIGHT);
+	},
+	create: function() {
+		prepareBoard();
+	}
+}
+var scene4 = {
+	preload: function() {
+		PieceScene(10, 8, '4');
+		game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH, PIECE_HEIGHT);
+	},
+	create: function() {
+		prepareBoard();
+	}
+}
 
 function prepareBoard(scene) {
-    var piecesIndex = 0,
-        i, j,
-        piece;
+	var piecesIndex = 0,
+		i, j,
+		piece;
 
-    /*BOARD_COLS = Math.floor(game.world.width / PIECE_WIDTH);//列数
-    BOARD_ROWS = Math.floor(game.world.height / PIECE_HEIGHT);//行数*/
-   
+	/*BOARD_COLS = Math.floor(game.world.width / PIECE_WIDTH);//列数
+	BOARD_ROWS = Math.floor(game.world.height / PIECE_HEIGHT);//行数*/
+
 	//碎片数量
-    piecesAmount = BOARD_COLS * BOARD_ROWS;
+	piecesAmount = BOARD_COLS * BOARD_ROWS;
 
-    shuffledIndexArray = createShuffledIndexArray();//乱序数组
+	shuffledIndexArray = createShuffledIndexArray(); //乱序数组
 
-    //块组
-    piecesGroup = game.add.group();
+	//块组
+	piecesGroup = game.add.group();
 
-    for (i = 0; i < BOARD_ROWS; i++)
-    {
-        for (j = 0; j < BOARD_COLS; j++)
-        {
-            if (shuffledIndexArray[piecesIndex]) {
-                piece = piecesGroup.create(j * PIECE_WIDTH, i * PIECE_HEIGHT, "background", shuffledIndexArray[piecesIndex]);
-            }
-            else { //initial position of black piece
-                //把0的置为空
-                piece = piecesGroup.create(j * PIECE_WIDTH, i * PIECE_HEIGHT);
-                piece.black = true;
-            }
-            piece.name = 'piece' + i.toString() + 'x' + j.toString();
-            piece.currentIndex = piecesIndex;//当前所在位置index
-            piece.destIndex = shuffledIndexArray[piecesIndex];//本块该在的位置index
-            piece.inputEnabled = true;
-            piece.events.onInputDown.add(selectPiece, this);
-            piece.posX = j;//当前位置x
-            piece.posY = i;//当前位置y
-            piecesIndex++;
-        }
-    }
+	for(i = 0; i < BOARD_ROWS; i++) {
+		for(j = 0; j < BOARD_COLS; j++) {
+			if(shuffledIndexArray[piecesIndex]) {
+				piece = piecesGroup.create(j * PIECE_WIDTH, i * PIECE_HEIGHT, "background", shuffledIndexArray[piecesIndex]);
+			} else { //initial position of black piece
+				//把0的置为空
+				piece = piecesGroup.create(j * PIECE_WIDTH, i * PIECE_HEIGHT);
+				piece.black = true;
+			}
+			piece.name = 'piece' + i.toString() + 'x' + j.toString();
+			piece.currentIndex = piecesIndex; //当前所在位置index
+			piece.destIndex = shuffledIndexArray[piecesIndex]; //本块该在的位置index
+			piece.inputEnabled = true;
+			piece.events.onInputDown.add(selectPiece, this);
+			piece.posX = j; //当前位置x
+			piece.posY = i; //当前位置y
+			piecesIndex++;
+		}
+	}
 
 }
 
 function selectPiece(piece) {
 
-    var blackPiece = canMove(piece);//寻找与点击块相邻的黑块
+	var blackPiece = canMove(piece); //寻找与点击块相邻的黑块
 
-    //if there is a black piece in neighborhood
-    if (blackPiece) {//如果找到了
-        movePiece(piece, blackPiece);
-    }
+	//if there is a black piece in neighborhood
+	if(blackPiece) { //如果找到了
+		movePiece(piece, blackPiece);
+	}
 
 }
 
 //寻找与点击块相邻的黑块
 function canMove(piece) {
 
-    var foundBlackElem = false;
+	var foundBlackElem = false;
 
-    //遍历块组，看看黑块是否与点击块相邻
-    piecesGroup.children.forEach(function(element) {
-        if (element.posX === (piece.posX - 1) && element.posY === piece.posY && element.black ||
-            element.posX === (piece.posX + 1) && element.posY === piece.posY && element.black ||
-            element.posY === (piece.posY - 1) && element.posX === piece.posX && element.black ||
-            element.posY === (piece.posY + 1) && element.posX === piece.posX && element.black) {
-            foundBlackElem = element;
-            return;
-        }
-    });
+	//遍历块组，看看黑块是否与点击块相邻
+	piecesGroup.children.forEach(function(element) {
+		if(element.posX === (piece.posX - 1) && element.posY === piece.posY && element.black ||
+			element.posX === (piece.posX + 1) && element.posY === piece.posY && element.black ||
+			element.posY === (piece.posY - 1) && element.posX === piece.posX && element.black ||
+			element.posY === (piece.posY + 1) && element.posX === piece.posX && element.black) {
+			foundBlackElem = element;
+			return;
+		}
+	});
 
-    return foundBlackElem;
+	return foundBlackElem;
 }
 
 //交换两个块的位置
 function movePiece(piece, blackPiece) {
 
-    var tmpPiece = {
-        posX: piece.posX,
-        posY: piece.posY,
-        currentIndex: piece.currentIndex
-    };
+	var tmpPiece = {
+		posX: piece.posX,
+		posY: piece.posY,
+		currentIndex: piece.currentIndex
+	};
 
-    //表现位置：移动点击块
-    game.add.tween(piece).to({x: blackPiece.posX * PIECE_WIDTH, y: blackPiece.posY * PIECE_HEIGHT}, 300, Phaser.Easing.Linear.None, true);
-    //黑块不可见，所以不用移动表现位置，如果移动就是下面这样
-    //game.add.tween(blackPiece).to({x: piece.posX * PIECE_WIDTH, y: piece.posY * PIECE_HEIGHT}, 300, Phaser.Easing.Linear.None, true);
+	//表现位置：移动点击块
+	game.add.tween(piece).to({
+		x: blackPiece.posX * PIECE_WIDTH,
+		y: blackPiece.posY * PIECE_HEIGHT
+	}, 300, Phaser.Easing.Linear.None, true);
+	//黑块不可见，所以不用移动表现位置，如果移动就是下面这样
+	//game.add.tween(blackPiece).to({x: piece.posX * PIECE_WIDTH, y: piece.posY * PIECE_HEIGHT}, 300, Phaser.Easing.Linear.None, true);
 
-    //change places of piece and blackPiece
-    //逻辑位置：交换点击块与黑块
-    piece.posX = blackPiece.posX;
-    piece.posY = blackPiece.posY;
-    piece.currentIndex = blackPiece.currentIndex;
-    piece.name ='piece' + piece.posX.toString() + 'x' + piece.posY.toString();
+	//change places of piece and blackPiece
+	//逻辑位置：交换点击块与黑块
+	piece.posX = blackPiece.posX;
+	piece.posY = blackPiece.posY;
+	piece.currentIndex = blackPiece.currentIndex;
+	piece.name = 'piece' + piece.posX.toString() + 'x' + piece.posY.toString();
 
-    //piece is the new black
-    //逻辑位置：交换点击块与黑块
-    blackPiece.posX = tmpPiece.posX;
-    blackPiece.posY = tmpPiece.posY;
-    blackPiece.currentIndex = tmpPiece.currentIndex;
-    blackPiece.name ='piece' + blackPiece.posX.toString() + 'x' + blackPiece.posY.toString();
+	//piece is the new black
+	//逻辑位置：交换点击块与黑块
+	blackPiece.posX = tmpPiece.posX;
+	blackPiece.posY = tmpPiece.posY;
+	blackPiece.currentIndex = tmpPiece.currentIndex;
+	blackPiece.name = 'piece' + blackPiece.posX.toString() + 'x' + blackPiece.posY.toString();
 
-    //after every move check if puzzle is completed
-    checkIfFinished();
+	//after every move check if puzzle is completed
+	checkIfFinished();
 }
 
 //是否已完成拼图
 function checkIfFinished() {
 
-    var isFinished = true;
+	var isFinished = true;
 
-    piecesGroup.children.forEach(function(element) {
-        if (element.currentIndex !== element.destIndex) {//找未完成的块
-            isFinished = false;
-            return;
-        }
-    });
-	
-    if (isFinished) {//如果已完成了，显示庆祝字样
-        showFinishedText();
-        alert('进入下一关');
-        scenes=document.getElementById('phaser-example').attributes["data-value"].value;
-        scenes=parseInt(scenes)+1;
-        submitData['level']=scenes;
-   		$.ajax({
-   			type:"post",
-   			url:"/H5game/php/userUpdate.php",
-   			data:submitData,
-   			success:{}
-   		});
-   		game.state.start('scene'+scenes);
-    }
+	piecesGroup.children.forEach(function(element) {
+		if(element.currentIndex !== element.destIndex) { //找未完成的块
+			isFinished = false;
+			return;
+		}
+	});
+
+	if(isFinished) { //如果已完成了，显示庆祝字样
+		showFinishedText();
+		alert('进入下一关');
+		scenes = document.getElementById('phaser-example').attributes["data-value"].value;
+		scenes = parseInt(scenes) + 1;
+		submitData['level'] = scenes;
+		$.ajax({
+			type: "post",
+			url: "/H5game/php/userUpdate.php",
+			data: submitData,
+			success: {}
+		});
+		game.state.start('scene' + scenes);
+	}
 
 }
 
 //显示庆祝字样
 function showFinishedText() {
 
-    var style = { font: "40px Arial", fill: "#000", align: "center"};
+	var style = {
+		font: "40px Arial",
+		fill: "#000",
+		align: "center"
+	};
 
-    var text = game.add.text(game.world.centerX, game.world.centerY, "完成！", style);
-	var imgpiece=game.add.image(0,0,"background");
-    text.anchor.set(0.5);
-    imgpiece.anchor.set(0);
-    
+	var text = game.add.text(game.world.centerX, game.world.centerY, "完成！", style);
+	var imgpiece = game.add.image(0, 0, "background");
+	text.anchor.set(0.5);
+	imgpiece.anchor.set(0);
+
 }
 
 //创造乱序数组，是先创造有序数组，再打乱之
 function createShuffledIndexArray() {
 
-    var indexArray = [];
+	var indexArray = [];
 
-    for (var i = 0; i < piecesAmount; i++)
-    {
-        indexArray.push(i);
-    }
+	for(var i = 0; i < piecesAmount; i++) {
+		indexArray.push(i);
+	}
 
-    return shuffle(indexArray);
+	return shuffle(indexArray);
 
 }
 
@@ -253,79 +246,113 @@ function createShuffledIndexArray() {
 //例如一共8个块，先随机找一个换到下标7的位置，再随机找一个换到下标6的位置..
 function shuffle(array) {
 
-    var counter = array.length,
-        temp,
-        index;
+	var counter = array.length,
+		temp,
+		index;
 
-    while (counter > 0)
-    {
-        index = Math.floor(Math.random() * counter);
+	while(counter > 0) {
+		index = Math.floor(Math.random() * counter);
 
-        counter--;
+		counter--;
 
-        temp = array[counter];
-        array[counter] = array[index];
-        array[index] = temp;
-    }
+		temp = array[counter];
+		array[counter] = array[index];
+		array[index] = temp;
+	}
 
-    return array;
-    
+	return array;
+
 }
 
-game.state.add('scene1',scene1);
-game.state.add('scene2',scene2);
-game.state.add('scene3',scene3);
-game.state.add('scene4',scene4);
+game.state.add('scene1', scene1);
+game.state.add('scene2', scene2);
+game.state.add('scene3', scene3);
+game.state.add('scene4', scene4);
 game.state.start('scene1');
 
-window.addEventListener('load',function(){
-	document.getElementById('scene1').onclick=function(){
-		submitData['level']='1';
+window.addEventListener('load', function() {
+	document.getElementById('scene1').onclick = function() {
+		submitData['level'] = '1';
 		$.ajax({
-   			type:"post",
-   			url:"/H5game/php/userUpdate.php",
-   			data:submitData,
-   			success:function(data){
-   				console.log(data);
-   			}
-   		});
+			type: "post",
+			url: "/H5game/php/userUpdate.php",
+			data: submitData,
+			success: function(data) {
+				console.log(data);
+			}
+		});
 		game.state.start('scene1');
 	}
-	document.getElementById('scene2').onclick=function(){
-		submitData['level']='2';
+	document.getElementById('scene2').onclick = function() {
+		submitData['level'] = '2';
 		$.ajax({
-   			type:"post",
-   			url:"/H5game/php/userUpdate.php",
-   			data:submitData,
-   			success:function(data){
-   				console.log(data);
-   			}
-   		});
+			type: "post",
+			url: "/H5game/php/userUpdate.php",
+			data: submitData,
+			success: function(data) {
+				console.log(data);
+			}
+		});
 		game.state.start('scene2');
 	}
-	document.getElementById('scene3').onclick=function(){
-		submitData['level']='3';
+	document.getElementById('scene3').onclick = function() {
+		submitData['level'] = '3';
 		$.ajax({
-   			type:"post",
-   			url:"/H5game/php/userUpdate.php",
-   			data:submitData,
-   			success:function(data){
-   				console.log(data);
-   			}
-   		});
+			type: "post",
+			url: "/H5game/php/userUpdate.php",
+			data: submitData,
+			success: function(data) {
+				console.log(data);
+			}
+		});
 		game.state.start('scene3');
 	}
-	document.getElementById('scene4').onclick=function(){
-		submitData['level']='4';
+	document.getElementById('scene4').onclick = function() {
+		submitData['level'] = '4';
 		$.ajax({
-   			type:"post",
-   			url:"/H5game/php/userUpdate.php",
-   			data:submitData,
-   			success:function(data){
-   				console.log(data);
-   			}
-   		});
+			type: "post",
+			url: "/H5game/php/userUpdate.php",
+			data: submitData,
+			success: function(data) {
+				console.log(data);
+			}
+		});
 		game.state.start('scene4');
 	}
+	$.ajax({
+		type: "get",
+		url: "/H5game/php/session.php",
+		dataType: "json",
+		success: function(data, textStatus) {
+			var html = '';
+			if(data.msg[0].msg == '0') {
+				console.log('未登录');
+				window.location = '/H5game/login.html';
+				return;
+			}
+			if(data.msg[0].msg == '1') {
+				var currentUser = data.msg[0].user;
+				var currentLevel = data.msg[0].level;
+				currentLevel=parseInt(currentLevel);
+				currentLevel=currentLevel+1;
+				html = '<p>' + currentUser + ',第'+currentLevel+'关</p><br/>';
+				for(var i in data.user) {
+					var id = data.user[i].id;
+					var user = data.user[i].user;
+					var level = data.user[i].level;
+					if(level == null) {
+						level = '0'
+					};
+					var password = data.user[i].password;
+					html = html + '<p>' + id + ',' + user + ',' + level + '</p>';
+				};
+				$('#user').html(html);
+				var scenesL = 'scene' + currentLevel;
+				game.state.start(scenesL);
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			console.log(errorThrown);
+		}
+	});
 });
- 

@@ -1,20 +1,27 @@
 <?php
 
 session_start();
+include "conn.php";
+
+
+$currerUser=$_SESSION['user'];
+
 
 if ($_SESSION['islogin'] != '1') {
-	$msg[] = array("msg" => '0', "user" => $_SESSION['user']);
+	$msg[] = array("msg" => '0', "user" => $currerUser);
 	$json = json_encode($msg);
 	echo "{" . '"user"' . ":" . $json . "}";
 	//header("Location: login.php");
 	exit();
 }
 
-$msg[] = array("msg" => '1', "user" => $_SESSION['user']);
-$msgJson = json_encode($msg);
-//echo "{" . '"user"' . ":" . $msgJson . "}";
 
-include "conn.php";
+$inquire="select level from USER where user='{$currerUser}'";
+$inquireResult=mysqli_query($conn, $inquire);
+$inResultVal=mysqli_fetch_row($inquireResult);
+$currer[] = array("msg" => '1', "user" => $currerUser,"level"=>$inResultVal[0]);
+$currerJson = json_encode($currer);
+
 
 $result = mysqli_query($conn, "SELECT * FROM USER");
 
@@ -24,7 +31,7 @@ while ($row = mysqli_fetch_array($result)) {
 }
 
 $json = json_encode($data);
-echo "{" . '"user"' . ":" . $json . "," . '"msg"' . ":" . $msgJson . "}";
+echo "{" . '"user"' . ":" . $json . "," . '"msg"' . ":" . $currerJson . "}";
 
 
 mysqli_close($conn);
