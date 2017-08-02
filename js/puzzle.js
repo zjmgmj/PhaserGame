@@ -271,7 +271,7 @@ game.state.add('scene4', scene4);
 game.state.start('scene1');
 
 window.addEventListener('load', function() {
-	document.getElementById('scene1').onclick = function() {
+	/*document.getElementById('scene1').onclick = function() {
 		submitData['level'] = '1';
 		$.ajax({
 			type: "post",
@@ -318,7 +318,7 @@ window.addEventListener('load', function() {
 			}
 		});
 		game.state.start('scene4');
-	}
+	}*/
 	$.ajax({
 		type: "get",
 		url: "/H5game/php/session.php",
@@ -335,16 +335,18 @@ window.addEventListener('load', function() {
 				var currentLevel = data.msg[0].level;
 				currentLevel=parseInt(currentLevel);
 				currentLevel=currentLevel+1;
-				html = '<p>' + currentUser + ',第'+currentLevel+'关</p><br/>';
+				var currentHtml = '<p>用户名：' + currentUser + ',第'+currentLevel+'关</p><br/>';
+				$('#currentUser').html(currentHtml);
 				for(var i in data.user) {
-					var id = data.user[i].id;
+					var id = parseFloat(i)+1;
 					var user = data.user[i].user;
 					var level = data.user[i].level;
 					if(level == null) {
 						level = '0'
 					};
 					var password = data.user[i].password;
-					html = html + '<p>' + id + ',' + user + ',' + level + '</p>';
+					
+					html = html + '<ul class="ranking"><li><span>'+ id +'</span></li><li><span>'+ user +'</span></li><li><span>'+ level +'</span></li></ul>';
 				};
 				$('#user').html(html);
 				var scenesL = 'scene' + currentLevel;

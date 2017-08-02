@@ -5,7 +5,7 @@
 	$user=$_POST["user"];
 	$password=$_POST["password"];
 	$regTime=date("Y-m-d H:i:s");;
-	
+	$level='0';
 	
 	
 	$idSql=mysqli_query($conn,"select max(id) from USER");
@@ -22,7 +22,7 @@
 	}
 	
 	//注册写入
-	$query="insert into USER(id,user,password,regTime) values('{$id}','{$user}','{$password}','{$regTime}')";
+	$query="insert into USER(id,user,password,level,regTime) values('{$id}','{$user}','{$password}','{$level}','{$regTime}')";
 	$result=mysqli_multi_query($conn,$query);
 	if($result){
 		echo "注册成功";

@@ -7,9 +7,6 @@ include "conn.php";
 $user=$_SESSION['user'];
 $level=$_POST['level'];
 
-/*$user='z123';
-$level='2';*/
-
 
 $query="update USER set level='{$level}' WHERE user='{$user}'";
 $update=mysqli_query($conn,$query);

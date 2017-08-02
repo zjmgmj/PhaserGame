@@ -8,18 +8,18 @@ $password=$_POST['password'];
 $loginTime=date("Y-m-d H:i:s");
 
 
-$query = "SELECT password FROM USER where user='{$user}'";
+$query = "SELECT * FROM USER where user='{$user}'";
 $result = mysqli_query($conn, $query);
 $row=mysqli_fetch_row($result);
 
 
 
-if($password==$row[0]){
+if($password==$row[2]){
 	$insertQuery="update USER set loginTime='{$loginTime}' where user='{$user}'";
 	mysqli_query($conn, $insertQuery);
 	
 	$_SESSION = array();
-	
+	$_SESSION['level']=$row[3];
 	$_SESSION["user"]=$user;
 	$_SESSION['islogin'] = true;
 	
