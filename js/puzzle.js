@@ -42,11 +42,13 @@ function PieceScene(a, b, scene) {
 var piecesGroup,
 	piecesAmount,
 	shuffledIndexArray = [];
-
+	
+	
+var imgSrc="assets/puzzle/"+Math.round(Math.random()*9+1)+".jpg";
 var scene1 = {
 	preload: function() {
 		PieceScene(4, 3, '1');
-		game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH, PIECE_HEIGHT);
+		game.load.spritesheet("background", imgSrc, PIECE_WIDTH, PIECE_HEIGHT);
 	},
 	create: function() {
 		prepareBoard();
@@ -55,7 +57,7 @@ var scene1 = {
 var scene2 = {
 	preload: function() {
 		PieceScene(5, 4, '2');
-		game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH, PIECE_HEIGHT);
+		game.load.spritesheet("background", imgSrc, PIECE_WIDTH, PIECE_HEIGHT);
 	},
 	create: function() {
 		prepareBoard();
@@ -65,7 +67,7 @@ var scene2 = {
 var scene3 = {
 	preload: function() {
 		PieceScene(8, 6, '3');
-		game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH, PIECE_HEIGHT);
+		game.load.spritesheet("background", imgSrc, PIECE_WIDTH, PIECE_HEIGHT);
 	},
 	create: function() {
 		prepareBoard();
@@ -74,7 +76,7 @@ var scene3 = {
 var scene4 = {
 	preload: function() {
 		PieceScene(10, 8, '4');
-		game.load.spritesheet("background", "assets/puzzle/1.jpg", PIECE_WIDTH, PIECE_HEIGHT);
+		game.load.spritesheet("background", imgSrc, PIECE_WIDTH, PIECE_HEIGHT);
 	},
 	create: function() {
 		prepareBoard();
