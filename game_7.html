@@ -5,50 +5,37 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 		<title></title>
+
+		<link rel="stylesheet" type="text/css" href="css/login.css" />
 		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/H5game/js/phaser.2.7.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/H5game/js/puzzle.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
-		<style type="text/css">
-			* {
-				margin: 0;
-				padding: 0;
-				list-style: none;
-			}
-			.ranks{
-				width: 300px;
-			}
-			.ranking {
-				display: flex;
-				flex-flow: nowrap;
-				justify-content: space-between;
-				align-items: center;
-			}
-			
-			/*.ranking li {
-				width: 15px;
-			}*/
-		</style>
-		<div id="currentUser"></div>
-		<button id="logout">注销</button>
-		<div id="phaser-example" data-value="1"></div>
-
-		<!--<div id="scene1">第一关</div>
-		<div id="scene2">第二关</div>
-		<div id="scene3">第三关</div>
-		<div id="scene4">第四关</div>-->
-		<div class="ranks">
-			<div>排行榜</div>
-			<div>
-				<ul class="ranking">
-					<li><span>排名</span></li>
-					<li><span>昵称</span></li>
-					<li><span>关卡</span></li>
+		<div class="body">
+			<div class="content">
+				<ul>
+					<li id="currentUser" class=""></li>
+					<li><button id="logout">注销</button></li>
+				</ul>
+				<ul>
+					<div id="phaser-example" data-value="1"></div>
+				</ul>
+				<ul>
+					<li class="ranks">排行榜</li>
+					<li class="ranks">
+						<div>
+							<ul class="ranking">
+								<li><span>排名</span></li>
+								<li><span>昵称</span></li>
+								<li><span>关卡</span></li>
+							</ul>
+						</div>
+						<div id="user"></div>
+					</li>
 				</ul>
 			</div>
-			<div id="user"></div>
 		</div>
 
 	</body>

@@ -56,3 +56,17 @@ input {
   clear: both;
   content: "";
 }
+.content {
+  width: 800px;
+  margin: 0 auto;
+  padding-top: 35px;
+}
+.ranks {
+  width: 300px;
+}
+.ranking {
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
