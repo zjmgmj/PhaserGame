@@ -273,65 +273,12 @@ game.state.add('scene4', scene4);
 game.state.start('scene1');
 
 window.addEventListener('load', function() {
-	/*document.getElementById('scene1').onclick = function() {
-		submitData['level'] = '1';
-		$.ajax({
-			type: "post",
-			url: "/H5game/php/userUpdate.php",
-			data: submitData,
-			success: function(data) {
-				console.log(data);
-			}
-		});
-		game.state.start('scene1');
-	}
-	document.getElementById('scene2').onclick = function() {
-		submitData['level'] = '2';
-		$.ajax({
-			type: "post",
-			url: "/H5game/php/userUpdate.php",
-			data: submitData,
-			success: function(data) {
-				console.log(data);
-			}
-		});
-		game.state.start('scene2');
-	}
-	document.getElementById('scene3').onclick = function() {
-		submitData['level'] = '3';
-		$.ajax({
-			type: "post",
-			url: "/H5game/php/userUpdate.php",
-			data: submitData,
-			success: function(data) {
-				console.log(data);
-			}
-		});
-		game.state.start('scene3');
-	}
-	document.getElementById('scene4').onclick = function() {
-		submitData['level'] = '4';
-		$.ajax({
-			type: "post",
-			url: "/H5game/php/userUpdate.php",
-			data: submitData,
-			success: function(data) {
-				console.log(data);
-			}
-		});
-		game.state.start('scene4');
-	}*/
 	$.ajax({
 		type: "get",
 		url: "/H5game/php/session.php",
 		dataType: "json",
 		success: function(data, textStatus) {
 			var html = '';
-			/*if(data.msg[0].msg == '0') {
-				console.log('未登录');
-				window.location = '/H5game/login.html';
-				return;
-			}*/
 			if(data.user[0].msg == '1') {
 				var currentUser = data.msg[0].user;
 				var currentLevel = data.msg[0].level;
